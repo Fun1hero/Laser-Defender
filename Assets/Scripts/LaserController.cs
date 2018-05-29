@@ -21,17 +21,12 @@ public class LaserController : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D collider){
 		EnemyController enemy = collider.GetComponent<EnemyController>();
 		PlayerController player = collider.GetComponent<PlayerController>();
-
-		//string colliderLayer = LayerMask.LayerToName(collider.gameObject.layer);
-//		Debug.Log(colliderLayer);
-//		Debug.Log("Log " + LayerMask.LayerToName(9));
-//		Debug.Log("Log " + LayerMask.LayerToName(8));
-		if (enemy && enemy.gameObject.layer != gameObject.layer){
+		if (enemy){
 			enemy.TakeDamege(damage);
 			Destroy(gameObject);
 		}
 
-		if (player && player.gameObject.layer != gameObject.layer){
+		if (player){
 			player.TakeDamege(damage);
 			Destroy(gameObject);
 		}

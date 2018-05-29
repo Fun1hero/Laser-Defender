@@ -13,16 +13,16 @@ public class EnemyController : MonoBehaviour {
 	public float missleSpeed = 3f, missleLifeSpan = 7f;
 
 	float timeUntilNextShot = 0.5f;
-	float timeBetweenShots = 0f;
+	float timeBetweenShots = 5f;
 
 	void Start (){
 		startHealth = health;
+		timeUntilNextShot = Random.Range(4f,8f);
 	}
 
 	void Update (){
 		timeUntilNextShot -= Time.deltaTime;
 		if (timeUntilNextShot <= 0) {
-			timeBetweenShots = Random.Range(4f,8f);
 			InvokeRepeating ("ShootLaser", 0.00001f, timeBetweenShots);
 			timeUntilNextShot = timeBetweenShots;
 		} else {

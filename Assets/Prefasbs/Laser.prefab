@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114510768894883584}
   - component: {fileID: 50496074454303372}
   - component: {fileID: 61058777605607992}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,6 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad1dc737537284a7bb07fd93f55967c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 8
+  lifeSpan: 3
   damage: 5
 --- !u!212 &212131147006358880
 SpriteRenderer:
