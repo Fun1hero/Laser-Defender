@@ -11,6 +11,11 @@ public class PlayerController : MonoBehaviour {
 	float timeBetweenShots = 0.5f;
 	public GameObject laser;
 
+	public float health = 20f;
+	public float damage = 5f;
+	public float missleSpeed = 5f;
+	public float missleLifeSpan = 2f;
+
 	// Use this for initialization
 	void Start () {
 		float halfPlayerWidth = transform.localScale.x / 2f;
@@ -41,12 +46,18 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void  ShootLaser (){
-		Instantiate(laser, transform.position, Quaternion.identity);
+		GameObject laserInstance = Instantiate(laser, transform.position, Quaternion.identity);
+		laserInstance.GetComponent<LaserController>().Init(Vector2.up, damage, missleSpeed, missleLifeSpan);
 	}
 
 	void MovePlayer (){
 		float input = Input.GetAxisRaw ("Horizontal");
 		float velocity = speed * input;
 		transform.Translate (Vector2.right * velocity * Time.deltaTime);
+	}
+
+	public void TakeDamege (float damage){
+		if (damage >= health) Destroy(gameObject); 
+		else health -= damage;
 	}
 }

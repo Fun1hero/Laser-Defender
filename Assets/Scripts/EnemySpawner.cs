@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour {
 
 	public GameObject enemyPrefab;
-	float speed = 5f, velocity = 1f;
+	float speed = 3f, velocity = 1f;
 	float width = 11f, height = 5f;
 	float screenHalfWifthInWorldUnit;
 	// Use this for initialization
