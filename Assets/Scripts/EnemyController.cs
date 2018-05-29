@@ -10,10 +10,15 @@ public class EnemyController : MonoBehaviour {
 
 	float health = 10f, damage = 3f;
 	float startHealth;
+
+	public int scoreValue = 5;
+
 	public float missleSpeed = 3f, missleLifeSpan = 7f;
 
 	float timeUntilNextShot = 0.5f;
 	float timeBetweenShots = 5f;
+
+	public event System.Action onEnemyDeath;
 
 	void Start (){
 		startHealth = health;
@@ -31,8 +36,10 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	public void TakeDamege (float damage){
-		if (damage >= health)
+		if (damage >= health) {
+			if (onEnemyDeath != null) onEnemyDeath();
 			Destroy (gameObject);
+		}
 		else { 
 			health -= damage;
 			healthBar.fillAmount = health / startHealth;
