@@ -16,6 +16,11 @@ public class PlayerController : MonoBehaviour {
 	public float missleSpeed = 5f;
 	public float missleLifeSpan = 2f;
 
+	public AudioClip deathSound;
+
+	public event System.Action onTakeDamage;
+	public event System.Action onDestroyPlayer;
+
 	// Use this for initialization
 	void Start () {
 		float halfPlayerWidth = transform.localScale.x / 2f;
@@ -41,8 +46,6 @@ public class PlayerController : MonoBehaviour {
 		} else if (Input.GetKeyUp (KeyCode.Space)) {
 			CancelInvoke ("ShootLaser");
 		}
-
-		
 	}
 
 	void  ShootLaser (){
@@ -57,7 +60,12 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void TakeDamege (float damage){
-		if (damage >= health) Destroy(gameObject); 
+		if (damage >= health) {
+			if(onDestroyPlayer != null) onDestroyPlayer();
+			Destroy (gameObject);
+		} 
 		else health -= damage;
+
+		if (onTakeDamage != null) onTakeDamage ();
 	}
 }

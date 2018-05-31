@@ -11,16 +11,18 @@ public class EnemyController : MonoBehaviour {
 	float health = 10f, damage = 3f;
 	float startHealth;
 
-	public int scoreValue = 5;
+	public int scoreValue;
 
 	public float missleSpeed = 3f, missleLifeSpan = 7f;
 
 	float timeUntilNextShot = 0.5f;
 	float timeBetweenShots = 5f;
 
-	public event System.Action onEnemyDeath;
+	public AudioClip deathSound;
+	public event System.Action<int> onEnemyDeath;
 
 	void Start (){
+		scoreValue  = 5;
 		startHealth = health;
 		timeUntilNextShot = Random.Range(4f,8f);
 	}
@@ -37,7 +39,8 @@ public class EnemyController : MonoBehaviour {
 
 	public void TakeDamege (float damage){
 		if (damage >= health) {
-			if (onEnemyDeath != null) onEnemyDeath();
+			if (onEnemyDeath != null) onEnemyDeath(scoreValue);
+			AudioSource.PlayClipAtPoint(deathSound, transform.position);
 			Destroy (gameObject);
 		}
 		else { 

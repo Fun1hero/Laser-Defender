@@ -6,16 +6,28 @@ using UnityEngine.UI;
 public class ScoreSystem : MonoBehaviour {
 
 	public Text scoreField;
-	int score = 0;
-	//FindObjectOfType<EnemyController>().onEnemyDeath += Scoring;
+	public static int score = 0;
+	EnemySpawner enemySpawner;
+	EnemyController enemyProp;
 
-	void Score (int score){
-		this.score += score;
-		scoreField.text = this.score.ToString();
+	void Start (){
+		score = 0;
+		enemySpawner = FindObjectOfType<EnemySpawner>();
+		enemySpawner.onEnemySpawn += AssignOnDeath;
+	}
+
+	void Score (int _score){
+		score += _score;
+		scoreField.text = score.ToString();
 	}
 
 	void Reset(){
-		this.score = 0;
-		scoreField.text = this.score.ToString();
+		score = 0;
+		scoreField.text = score.ToString();
+	}
+
+	void AssignOnDeath (GameObject enemy){
+		enemyProp = enemy.GetComponent<EnemyController>();
+		enemyProp.onEnemyDeath += Score;
 	}
 }

@@ -236,8 +236,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laser: {fileID: 1636676850567254, guid: 4d5cb4cb6c9894751bf4e2dd33761325, type: 2}
   healthBar: {fileID: 114035178011608908}
+  scoreValue: 0
   missleSpeed: 3
   missleLifeSpan: 4
+  deathSound: {fileID: 8300000, guid: 93813904c4ab04d1fa2934ef4eb1021a, type: 3}
 --- !u!114 &114577622337729628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -296,8 +298,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -870912427
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c2725bd19e5f94dffa41b7fb5f7751a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

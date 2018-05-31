@@ -7,12 +7,14 @@ public class EnemySpawner : MonoBehaviour {
 	public GameObject enemyPrefab;
 	float speed = 3f, velocity = 1f;
 	float width = 11f, height = 5f;
-	float spawnDelay = 1.5f;
+	float spawnDelay;
 	float screenHalfWifthInWorldUnit;
+
+	public event System.Action<GameObject> onEnemySpawn;
 
 	void Start (){
 		screenHalfWifthInWorldUnit = LevelManager.screenHalfWifthInWorldUnit - width/2f;
-		
+		spawnDelay = Random.Range(0.5f,1.2f);
 		SpawnUntillFull();
 	}
 
@@ -39,6 +41,9 @@ public class EnemySpawner : MonoBehaviour {
 		if (freePosition) {
 			GameObject enemy = Instantiate (enemyPrefab, freePosition.position, Quaternion.identity);
 			enemy.transform.parent = freePosition;
+			if (onEnemySpawn != null) {
+				onEnemySpawn (enemy);
+			}
 		}
 		if (NextFreeposition()) Invoke("SpawnUntillFull", spawnDelay);
 	}

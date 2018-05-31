@@ -7,19 +7,35 @@ public class LevelManager : MonoBehaviour {
 
 	public int currentLevel;
 	public string currentLevelName;
-	public static float screenHalfWifthInWorldUnit = Camera.main.aspect * Camera.main.orthographicSize;
-	public static float screenHalfHeightInWorldUnit = Camera.main.orthographicSize;
+	public static float screenHalfWifthInWorldUnit;
+	public static float screenHalfHeightInWorldUnit;
+
+
+	PlayerController player;
 
 	void Awake(){
+
+		screenHalfWifthInWorldUnit = Camera.main.aspect * Camera.main.orthographicSize;
+		screenHalfHeightInWorldUnit = Camera.main.orthographicSize;
+
 		currentLevel = SceneManager.GetActiveScene().buildIndex;
 		currentLevelName = SceneManager.GetActiveScene().name;
-		//screenHalfWifthInWorldUnit = Camera.main.aspect * Camera.main.orthographicSize;
-		//screenHalfHeightInWorldUnit = Camera.main.scaledPixelHeight;
-		//CursorCheck();
+
+	}
+
+	void Start(){
+		SceneManager.sceneLoaded += SceneLoaded;
 	}
 
 	public void LoadLevel (string name){
 		SceneManager.LoadScene(name);
+		//SceneManager.sceneLoaded += SceneLoaded;
+	}
+
+	void SceneLoaded (Scene scene, LoadSceneMode mode){
+		player = FindObjectOfType<PlayerController>();
+		if (player != null)
+			player.onDestroyPlayer += OnPlayerDeath;
 	}
 
 	public void QuitRequest (){
@@ -40,5 +56,9 @@ public class LevelManager : MonoBehaviour {
 		} else {
 			Cursor.visible = true;
 		}
+	}
+
+	void OnPlayerDeath (){
+		LoadLevel("End");
 	}
 }

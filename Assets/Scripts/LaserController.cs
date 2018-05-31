@@ -11,6 +11,7 @@ public class LaserController : MonoBehaviour {
 
 	void Start () {
 	 	Destroy(gameObject, lifeSpan);
+		GetComponent<AudioSource>().Play();
 	}
 
 	// Update is called once per frame
